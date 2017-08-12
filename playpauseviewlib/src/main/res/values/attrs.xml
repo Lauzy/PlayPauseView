@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PlayPauseView">
+        <attr name="bg_color" format="color"/>
+        <attr name="btn_color" format="color"/>
+        <attr name="gap_width" format="float"/>
+        <attr name="space_padding" format="float"/>
+        <attr name="anim_direction">
+            <enum name="positive" value="1"/>
+            <enum name="negative" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

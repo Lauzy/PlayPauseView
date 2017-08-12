@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.freedom.lauzy.playpauseview.MainActivity">
+
+    <Button
+        android:id="@+id/btn_paly_pause"
+        android:text="Click"
+        android:textAllCaps="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.freedom.lauzy.playpauseviewlib.PlayPauseView
+        android:id="@+id/play_pause_view1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        app:anim_direction="positive"
+        app:bg_color="#E0E0E0"
+        app:btn_color="#000000"
+        app:gap_width="30"/>
+
+    <com.freedom.lauzy.playpauseviewlib.PlayPauseView
+        android:id="@+id/play_pause_view2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        app:bg_color="#E0E0E0"
+        app:anim_direction="negative"
+        app:btn_color="#000000"
+        app:gap_width="30"/>
+
+</LinearLayout>
