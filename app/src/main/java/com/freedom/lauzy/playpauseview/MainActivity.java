@@ -1,5 +1,6 @@
 package com.freedom.lauzy.playpauseview;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        playPauseView1.setDirection(PlayPauseView.Direction.NEGATIVE);
 
         findViewById(R.id.btn_paly_pause).setOnClickListener(new View.OnClickListener() {
             @Override

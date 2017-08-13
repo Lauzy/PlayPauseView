@@ -22,6 +22,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         app:anim_direction="positive"
+        app:anim_duration="300"
         app:bg_color="#E0E0E0"
         app:btn_color="#000000"
         app:gap_width="30"/>
@@ -34,6 +35,7 @@
         android:layout_marginTop="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:bg_color="#E0E0E0"
+        app:anim_duration="300"
         app:anim_direction="negative"
         app:btn_color="#000000"
         app:gap_width="30"/>
