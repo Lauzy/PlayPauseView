@@ -72,8 +72,7 @@
 |app:gap_width      |setGapWidth(int width)|暂停时两个竖条的距离，默认为暂停时竖条的宽度
 |app:space_padding  |setSpacePadding(float space)|按钮边缘与播放暂停按钮的距离
 |app:anim_duration  |setAnimDuration(int duration)|动画时长，默认为200ms
-|app:anim_direction |setDirection(Direction direction)|动画旋转方向，默认为顺时针。
-属性值：PlayPauseView.Direction.POSITIVE（顺时针），PlayPauseView.Direction.NEGATIVE（逆时针）
+|app:anim_direction |setDirection(Direction direction)|动画旋转方向，默认为顺时针。属性值：PlayPauseView.Direction.POSITIVE（顺时针），PlayPauseView.Direction.NEGATIVE（逆时针）
 
 
 ## 开源协议
