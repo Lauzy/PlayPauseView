@@ -69,7 +69,7 @@
 |-------------------|---------------|---------------|
 |app:bg_color       |setBgColor(int color)|按钮的背景颜色，默认为白色
 |app:btn_color      |setBtnColor(int color)|暂停播放按钮颜色，默认为黑色
-|app:gap_width      |setGapWidth(int width)|暂停时两个竖条的距离，默认为暂停时竖条的宽度
+|app:gap_width      |setGapWidth(int width)|暂停时左右两个矩形的距离，默认为暂停时矩形的宽度
 |app:space_padding  |setSpacePadding(float space)|按钮边缘与播放暂停按钮的距离
 |app:anim_duration  |setAnimDuration(int duration)|动画时长，默认为200ms
 |app:anim_direction |setDirection(Direction direction)|动画旋转方向，默认为顺时针。属性值：PlayPauseView.Direction.POSITIVE（顺时针），PlayPauseView.Direction.NEGATIVE（逆时针）

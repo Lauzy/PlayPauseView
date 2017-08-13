@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        playPauseView1.setDirection(PlayPauseView.Direction.NEGATIVE);
-
         findViewById(R.id.btn_paly_pause).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
