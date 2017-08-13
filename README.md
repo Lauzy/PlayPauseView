@@ -2,7 +2,7 @@
 
 ## 效果图
 
-<img src="/Screenshot/20170812PlayPauseView.gif" alt="screenshot" title="screenshot" width="240" height="240" />
+<img src="/Screenshot/20170812PlayPauseViewSR.gif" alt="screenshot" title="screenshot" width="240" height="600" />
 
 ## 博客介绍
 
