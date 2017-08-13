@@ -10,6 +10,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 /**
@@ -38,6 +39,7 @@ public class PlayPauseView extends View {
     private int mBtnColor = Color.BLACK;
     private int mDirection = Direction.POSITIVE.value;
     private float mPadding;
+    private int mAnimDuration = 200;//动画时间
 
     public PlayPauseView(Context context) {
         super(context);
@@ -65,6 +67,7 @@ public class PlayPauseView extends View {
         mGapWidth = ta.getFloat(R.styleable.PlayPauseView_gap_width, 0);
         mDirection = ta.getInt(R.styleable.PlayPauseView_anim_direction, Direction.POSITIVE.value);
         mPadding = ta.getFloat(R.styleable.PlayPauseView_space_padding, 0);
+        mAnimDuration = ta.getInt(R.styleable.PlayPauseView_anim_duration,200);
         ta.recycle();
     }
 
@@ -90,10 +93,10 @@ public class PlayPauseView extends View {
                 break;
         }
 
-        initSize();
+        initValue();
     }
 
-    private void initSize() {
+    private void initValue() {
 //        int rectLT = (int) (mWidth / 2 - radius / Math.sqrt(2));
 //        int rectRB = (int) (mWidth / 2 + radius / Math.sqrt(2));
         mRadius = mWidth / 2;
@@ -101,8 +104,8 @@ public class PlayPauseView extends View {
             *//*throw new IllegalArgumentException("The value of your padding is too large. " +
                     "The value must not be greater than " + (int) (mRadius / Math.sqrt(2)));*//*
         }*/
-        mPadding = getPadding() == 0 ? mRadius / 3f : getPadding();
-        if (getPadding() > mRadius / Math.sqrt(2) || mPadding < 0) {
+        mPadding = getSpacePadding() == 0 ? mRadius / 3f : getSpacePadding();
+        if (getSpacePadding() > mRadius / Math.sqrt(2) || mPadding < 0) {
             mPadding = mRadius / 3f; //默认值
         }
         float space = (float) (mRadius / Math.sqrt(2) - mPadding); //矩形宽高的一半
@@ -116,16 +119,21 @@ public class PlayPauseView extends View {
         mRectHeight = mRect.height();
         mGapWidth = getGapWidth() != 0 ? getGapWidth() : mRectWidth / 3;
         mProgress = isPlaying ? 0 : 1;
+        mAnimDuration = getAnimDuration() < 0 ? 200 : getAnimDuration();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        mLeftPath.rewind();
+        mRightPath.rewind();
+
 //        mPaint.setStrokeWidth(1);
 //        mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setColor(mBgColor);
         canvas.drawCircle(mWidth / 2, mHeight / 2, mRadius, mPaint);
-        //        canvas.drawRect(mRect, mPaint);
+//        canvas.drawRect(mRect, mPaint);
 
         float distance = mGapWidth * (1 - mProgress);  //暂停时左右两边矩形距离
         float barWidth = mRectWidth / 2 - distance / 2;     //一个矩形的宽度
@@ -136,8 +144,7 @@ public class PlayPauseView extends View {
         float rightRightBottom = rightRightTop - barWidth * mProgress; //右边矩形右下角
 
         mPaint.setColor(mBtnColor);
-        mLeftPath.rewind();
-        mRightPath.rewind();
+        mPaint.setStyle(Paint.Style.FILL);
 
         if (mDirection == Direction.NEGATIVE.value) {
             mLeftPath.moveTo(mRectLT, mRectLT);
@@ -165,7 +172,9 @@ public class PlayPauseView extends View {
             mRightPath.close();
         }
 
-        canvas.translate(mRectHeight / 8f * mProgress, 0);
+        canvas.save();
+
+        canvas.translate((float) (mRectHeight * Math.sqrt(2) / 8f * mProgress), 0);
 
         float progress = isPlaying ? (1 - mProgress) : mProgress;
         int corner = mDirection == Direction.NEGATIVE.value ? -90 : 90;
@@ -174,11 +183,13 @@ public class PlayPauseView extends View {
 
         canvas.drawPath(mLeftPath, mPaint);
         canvas.drawPath(mRightPath, mPaint);
+
+        canvas.restore();
     }
 
     public ValueAnimator getPlayPauseAnim() {
         ValueAnimator valueAnimator = ValueAnimator.ofFloat(isPlaying ? 1 : 0, isPlaying ? 0 : 1);
-        valueAnimator.setDuration(200);
+        valueAnimator.setDuration(mAnimDuration);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -275,15 +286,23 @@ public class PlayPauseView extends View {
         mDirection = direction.value;
     }
 
-    public float getPadding() {
+    public float getSpacePadding() {
         return mPadding;
     }
 
-    public void setPadding(float padding) {
+    public void setSpacePadding(float padding) {
         mPadding = padding;
     }
 
-    enum Direction {
+    public int getAnimDuration() {
+        return mAnimDuration;
+    }
+
+    public void setAnimDuration(int animDuration) {
+        mAnimDuration = animDuration;
+    }
+
+    public enum Direction {
         POSITIVE(1),//顺时针
         NEGATIVE(2);//逆时针
         int value;
