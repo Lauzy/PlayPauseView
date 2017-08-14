@@ -19,9 +19,11 @@
 	}
 
     dependencies {
-        compile 'com.github.Lauzy:PlayPauseView:1.0.0'
+        compile 'com.github.Lauzy:PlayPauseView:VERSION_CODE'
 	}
 ```
+
+最新版本号版本号(VERSION_CODE)在[这里](https://github.com/Lauzy/PlayPauseView/releases)。
 
 ## 用法
 
