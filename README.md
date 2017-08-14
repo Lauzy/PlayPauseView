@@ -23,7 +23,7 @@
 	}
 ```
 
-最新版本号版本号(VERSION_CODE)在[这里](https://github.com/Lauzy/PlayPauseView/releases)。
+最新版本号(VERSION_CODE)在[这里](https://github.com/Lauzy/PlayPauseView/releases)。
 
 ## 用法
 
