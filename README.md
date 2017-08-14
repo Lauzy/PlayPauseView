@@ -1,5 +1,7 @@
 ##   PlayPauseView  让播放、暂停按钮优雅的过渡
 
+[![](https://jitpack.io/v/Lauzy/PlayPauseView.svg)](https://jitpack.io/#Lauzy/PlayPauseView)
+
 ## 效果图
 
 <img src="/Screenshot/20170812PlayPauseViewSR.gif" alt="screenshot" title="screenshot" width="240" height="400" />
