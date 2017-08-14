@@ -10,7 +10,6 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 /**
@@ -67,7 +66,7 @@ public class PlayPauseView extends View {
         mGapWidth = ta.getFloat(R.styleable.PlayPauseView_gap_width, 0);
         mDirection = ta.getInt(R.styleable.PlayPauseView_anim_direction, Direction.POSITIVE.value);
         mPadding = ta.getFloat(R.styleable.PlayPauseView_space_padding, 0);
-        mAnimDuration = ta.getInt(R.styleable.PlayPauseView_anim_duration,200);
+        mAnimDuration = ta.getInt(R.styleable.PlayPauseView_anim_duration, 200);
         ta.recycle();
     }
 
@@ -174,7 +173,7 @@ public class PlayPauseView extends View {
 
         canvas.save();
 
-        canvas.translate((float) (mRectHeight * Math.sqrt(2) / 8f * mProgress), 0);
+        canvas.translate(mRectHeight / 8f * mProgress, 0);
 
         float progress = isPlaying ? (1 - mProgress) : mProgress;
         int corner = mDirection == Direction.NEGATIVE.value ? -90 : 90;
