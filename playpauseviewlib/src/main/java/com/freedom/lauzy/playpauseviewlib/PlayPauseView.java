@@ -91,7 +91,12 @@ public class PlayPauseView extends View {
             case MeasureSpec.UNSPECIFIED:
                 break;
         }
+    }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mWidth = mHeight = w;
         initValue();
     }
 
