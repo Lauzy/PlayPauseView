@@ -30,8 +30,8 @@ public class PlayPauseView extends View {
     private float mProgress; //动画Progress
     private Rect mRect;
     private boolean isPlaying;
-    private int mRectWidth;  //圆内矩形宽度
-    private int mRectHeight; //圆内矩形高度
+    private float mRectWidth;  //圆内矩形宽度
+    private float mRectHeight; //圆内矩形高度
     private int mRectLT;  //矩形左侧上侧坐标
     private int mRadius;  //圆的半径
     private int mBgColor = Color.WHITE;
@@ -119,8 +119,10 @@ public class PlayPauseView extends View {
         mRect.bottom = rectRB;
         mRect.left = mRectLT;
         mRect.right = rectRB;
-        mRectWidth = mRect.width();
-        mRectHeight = mRect.height();
+//        mRectWidth = mRect.width();
+//        mRectHeight = mRect.height();
+        mRectWidth = 2 * space + 1; //改为float类型，否则动画有抖动。并增加一像素防止三角形之间有缝隙
+        mRectHeight = 2 * space + 1;
         mGapWidth = getGapWidth() != 0 ? getGapWidth() : mRectWidth / 3;
         mProgress = isPlaying ? 0 : 1;
         mAnimDuration = getAnimDuration() < 0 ? 200 : getAnimDuration();
