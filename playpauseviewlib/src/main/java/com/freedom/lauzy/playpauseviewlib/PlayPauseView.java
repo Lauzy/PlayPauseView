@@ -32,8 +32,8 @@ public class PlayPauseView extends View {
     private boolean isPlaying;
     private float mRectWidth;  //圆内矩形宽度
     private float mRectHeight; //圆内矩形高度
-    private int mRectLT;  //矩形左侧上侧坐标
-    private int mRadius;  //圆的半径
+    private float mRectLT;  //矩形左侧上侧坐标
+    private float mRadius;  //圆的半径
     private int mBgColor = Color.WHITE;
     private int mBtnColor = Color.BLACK;
     private int mDirection = Direction.POSITIVE.value;
@@ -63,14 +63,15 @@ public class PlayPauseView extends View {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PlayPauseView);
         mBgColor = ta.getColor(R.styleable.PlayPauseView_bg_color, Color.WHITE);
         mBtnColor = ta.getColor(R.styleable.PlayPauseView_btn_color, Color.BLACK);
-        mGapWidth = ta.getFloat(R.styleable.PlayPauseView_gap_width, 0);
+        mGapWidth = ta.getDimensionPixelSize(R.styleable.PlayPauseView_gap_width, dp2px(context, 0));
+        mPadding = ta.getDimensionPixelSize(R.styleable.PlayPauseView_space_padding, dp2px(context, 0));
         mDirection = ta.getInt(R.styleable.PlayPauseView_anim_direction, Direction.POSITIVE.value);
-        mPadding = ta.getFloat(R.styleable.PlayPauseView_space_padding, 0);
         mAnimDuration = ta.getInt(R.styleable.PlayPauseView_anim_duration, 200);
         ta.recycle();
+
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
     }
 
-    @SuppressWarnings("unused")
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -78,19 +79,18 @@ public class PlayPauseView extends View {
         mHeight = MeasureSpec.getSize(heightMeasureSpec);
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        switch (widthMode) {
-            case MeasureSpec.EXACTLY:
-                mWidth = mHeight = Math.min(mWidth, mHeight);
-                setMeasuredDimension(mWidth, mHeight);
-                break;
-            case MeasureSpec.AT_MOST:
-                float density = getResources().getDisplayMetrics().density;
-                mWidth = mHeight = (int) (50 * density); //默认50dp
-                setMeasuredDimension(mWidth, mHeight);
-                break;
-            case MeasureSpec.UNSPECIFIED:
-                break;
+        if (widthMode == MeasureSpec.EXACTLY) {
+            mWidth = Math.min(mWidth, mHeight);
+        } else {
+            mWidth = dp2px(getContext(), 50);
         }
+        if (heightMode == MeasureSpec.EXACTLY) {
+            mHeight = Math.min(mWidth, mHeight);
+        } else {
+            mHeight = dp2px(getContext(), 50);
+        }
+        mWidth = mHeight = Math.min(mWidth, mHeight);
+        setMeasuredDimension(mWidth, mHeight);
     }
 
     @Override
@@ -104,8 +104,8 @@ public class PlayPauseView extends View {
 //        int rectLT = (int) (mWidth / 2 - radius / Math.sqrt(2));
 //        int rectRB = (int) (mWidth / 2 + radius / Math.sqrt(2));
         mRadius = mWidth / 2;
-       /* if (getPadding() > mRadius / Math.sqrt(2) || mPadding < 0) {
-            *//*throw new IllegalArgumentException("The value of your padding is too large. " +
+        /* if (getPadding() > mRadius / Math.sqrt(2) || mPadding < 0) {
+         *//*throw new IllegalArgumentException("The value of your padding is too large. " +
                     "The value must not be greater than " + (int) (mRadius / Math.sqrt(2)));*//*
         }*/
         mPadding = getSpacePadding() == 0 ? mRadius / 3f : getSpacePadding();
@@ -113,16 +113,16 @@ public class PlayPauseView extends View {
             mPadding = mRadius / 3f; //默认值
         }
         float space = (float) (mRadius / Math.sqrt(2) - mPadding); //矩形宽高的一半
-        mRectLT = (int) (mRadius - space);
-        int rectRB = (int) (mRadius + space);
-        mRect.top = mRectLT;
-        mRect.bottom = rectRB;
-        mRect.left = mRectLT;
-        mRect.right = rectRB;
+        mRectLT = mRadius - space;
+        float rectRB = mRadius + space;
+        mRect.top = (int) mRectLT;
+        mRect.bottom = (int) rectRB;
+        mRect.left = (int) mRectLT;
+        mRect.right = (int) rectRB;
 //        mRectWidth = mRect.width();
 //        mRectHeight = mRect.height();
-        mRectWidth = 2 * space + 1; //改为float类型，否则动画有抖动。并增加一像素防止三角形之间有缝隙
-        mRectHeight = 2 * space + 1;
+        mRectWidth = 2 * space;
+        mRectHeight = 2 * space;
         mGapWidth = getGapWidth() != 0 ? getGapWidth() : mRectWidth / 3;
         mProgress = isPlaying ? 0 : 1;
         mAnimDuration = getAnimDuration() < 0 ? 200 : getAnimDuration();
@@ -250,6 +250,13 @@ public class PlayPauseView extends View {
         void pause();
     }
 
+    public int dp2px(Context context, float dpVal) {
+        float density = context.getResources().getDisplayMetrics().density;
+        return (int) (density * dpVal + 0.5f);
+//        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+//                dpVal, context.getResources().getDisplayMetrics());
+    }
+
     /* ------------下方是参数------------- */
 
     public boolean isPlaying() {
@@ -260,7 +267,7 @@ public class PlayPauseView extends View {
         isPlaying = playing;
     }
 
-    public void setGapWidth(int gapWidth) {
+    public void setGapWidth(float gapWidth) {
         mGapWidth = gapWidth;
     }
 

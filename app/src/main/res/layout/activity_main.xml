@@ -10,10 +10,10 @@
 
     <Button
         android:id="@+id/btn_paly_pause"
-        android:text="Click"
-        android:textAllCaps="false"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="Click"
+        android:textAllCaps="false"/>
 
     <com.freedom.lauzy.playpauseviewlib.PlayPauseView
         android:id="@+id/play_pause_view1"
@@ -24,8 +24,7 @@
         app:anim_direction="positive"
         app:anim_duration="300"
         app:bg_color="#E0E0E0"
-        app:btn_color="#000000"
-        app:gap_width="30"/>
+        app:btn_color="#000000"/>
 
     <com.freedom.lauzy.playpauseviewlib.PlayPauseView
         android:id="@+id/play_pause_view2"
@@ -34,10 +33,9 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:background="?attr/selectableItemBackgroundBorderless"
-        app:bg_color="#E0E0E0"
-        app:anim_duration="300"
         app:anim_direction="negative"
-        app:btn_color="#000000"
-        app:gap_width="30"/>
+        app:anim_duration="300"
+        app:bg_color="#E0E0E0"
+        app:btn_color="#000000"/>
 
 </LinearLayout>
